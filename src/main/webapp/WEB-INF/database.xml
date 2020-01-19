@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <!--        <property name="driverClassName" value="org.postgresql.Driver"/>-->
+    <!--        <property name="url"-->
+    <!--                  value="jdbc:postgresql://localhost:5432/postgres"/>-->
+    <!--        <property name="username" value="postgres"/>-->
+    <!--        <property name="password" value="1"/>-->
+    <!--    </bean>-->
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url"
+                  value="jdbc:postgresql://ec2-54-247-96-169.eu-west-1.compute.amazonaws.com:5432/dedgivhfaujcmt?ssl:true;sslfactory:org.postgresql.ssl.NonValidatingFactory"/>
+        <property name="username" value="wirszidhvmzdgu"/>
+        <property name="password" value="bed9806a10fb498dd187c9d06daa168bd2bec03882a297ecbb2090ec5b8acf45"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="ru.testtask.pojo"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.current.session.context.class">
+                    org.springframework.orm.hibernate5.SpringSessionContext>
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+</beans>

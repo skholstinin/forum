@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'forum'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // web
+    compile group: 'jstl', name: 'jstl', version: '1.2'
+
+    // spring
+    compile group: 'org.springframework', name: 'spring-context', version: '5.2.0.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.2.0.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.2.0.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version: '5.2.0.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.2.0.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.2.0.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.2.0.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.2.0.RELEASE'
+
+    // dao
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.6.Final'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
+
+
+    // log
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+
+
+    //test
+    testCompile group: 'junit', name: 'junit', version: '4.13-rc-1'
+
+}
