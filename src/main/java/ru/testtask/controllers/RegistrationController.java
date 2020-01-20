@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.testtask.dto.RegistrationPageDTO;
 import ru.testtask.service.registration.UserRegistrationService;
+import ru.testtask.service.topic.TopicService;
 
 @Controller
 public class RegistrationController {
@@ -33,7 +34,7 @@ public class RegistrationController {
             model.addAttribute("user", user);
             return "registration";
         }
-        return addUser(user) ? "emailCheck" : "registration";
+        return addUser(user) ? "mainpage" : "registration";
     }
 
     private boolean checkDataAndSetError(Model model, RegistrationPageDTO user) {
@@ -45,23 +46,56 @@ public class RegistrationController {
     }
 
     private boolean checkName(Model model, RegistrationPageDTO user) {
-        //TODO
+        if (registrationService.isNameEmpty(user)) {
+            model.addAttribute("firstNameError", "Не указано имя");
+            return false;
+        } else if (!registrationService.validateLength(user.getName(), 30)) {
+            model.addAttribute("firstNameError", "Не должно быть больше 30 символов");
+            return false;
+        }
         return true;
     }
 
     private boolean checkSurName(Model model, RegistrationPageDTO user) {
-        //TODO
+        if (registrationService.isSurNameEmpty(user)) {
+
+            model.addAttribute("surnameError", "Не указана фамилия");
+            return false;
+        } else if (!registrationService.validateLength(user.getSurname(), 40)) {
+            model.addAttribute("surnameError", "Не должно быть больше 40 символов");
+            return false;
+        }
         return true;
     }
 
     private boolean checkLogin(Model model, RegistrationPageDTO user) {
-        //TODO
+        if (registrationService.isLoginEmpty(user)) {
+            model.addAttribute("loginError", "Не указан логин");
+            return false;
+        } else if (!registrationService.isLoginUnique(user)) {
+            model.addAttribute("loginError", "Данный логин уже используется");
+            return false;
+        } else if (!registrationService.validateLoginLengthAndContains(user)) {
+            model.addAttribute("loginError", "Логин должен содержать хотя бы одну цифру, одну строчную и одну заглавную букву и один спецсимвол(из !@#$%)");
+        }
         return true;
     }
 
     private boolean checkPassword(Model model, RegistrationPageDTO user) {
-        //TODO
-        return true;
+        boolean result = true;
+        if (registrationService.isPasswordEmpty(user)) {
+            model.addAttribute("passwordError", "Не введен пароль");
+            result = false;
+        }
+        if (registrationService.isPasswordDoubleEmpty(user)) {
+            model.addAttribute("passwordDoubleError", "Не введен пароль");
+            result = false;
+        }
+        if (result && !registrationService.isPasswordEquals(user)) {
+            model.addAttribute("passwordDoubleError", "Пароли не совпадают");
+            result = false;
+        }
+        return result;
     }
 
     private boolean addUser(RegistrationPageDTO userDto) {

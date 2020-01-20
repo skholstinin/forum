@@ -29,7 +29,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         userPageDTO.setPassword(passwordEncoder.encode(userPageDTO.getPassword()));
         userPageDTO.setPasswordDouble(userPageDTO.getPassword());
         User user = convertUserDtpToUserPojo(userPageDTO);
-        return false;
+        return userDao.createUser(user);
     }
 
     @Override
@@ -73,6 +73,11 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     }
 
     @Override
+    public boolean validateLoginLengthAndContains(RegistrationPageDTO registrationInfo) {
+        return registrationInfo.getLogin().matches("(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$");
+    }
+
+    @Override
     public boolean validateLength(String val, int len) {
         return val != null && val.length() <= len;
     }
@@ -84,6 +89,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setSurname(pageDTO.getSurname());
         user.setLogin(pageDTO.getLogin());
         user.setPassword(pageDTO.getPassword());
+        user.setEnabled(true);
         return user;
     }
 }

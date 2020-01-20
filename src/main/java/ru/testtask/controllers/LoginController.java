@@ -3,6 +3,7 @@ package ru.testtask.controllers;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
     private static final Logger logger = Logger.getLogger(LoginController.class);
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping(value = "/login")
     public String showLoginForm(
             @RequestParam(value = "error", required = false) String error,
             Model model) {
@@ -22,7 +23,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping(value = "/registration")
     public String showRegistrationForm(
             @RequestParam(value = "error", required = false) String error,
             Model model) {

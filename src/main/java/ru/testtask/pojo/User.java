@@ -1,8 +1,11 @@
 package ru.testtask.pojo;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -13,28 +16,39 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String role;
+    private boolean isEnabled;
     private List<RoleAction> roleActions = new ArrayList<>();
-    private Set<UserPost> posts = new HashSet<>();
 
+    public User(String name,
+                String surname,
+                String login,
+                String password,
+                String role,
+                boolean isEnabled) {
 
-    public User(String name, String surname, String login, String password, String role) {
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
         this.role = role;
-    }
-
-    public User(String name, String surname, String login, String password, String role, List<RoleAction> roleActions) {
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.role = role;
-        this.roleActions = roleActions;
+        this.isEnabled = isEnabled;
     }
 
     public User() {
+    }
+
+    public User(String name, String surname, String login, String password, String role, boolean isEnabled, List<RoleAction> roleActions) {
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.isEnabled = isEnabled;
+        this.roleActions = roleActions;
+    }
+
+    public void setRoleActions(List<RoleAction> roleActions) {
+        this.roleActions = roleActions;
     }
 
     @Id
@@ -44,8 +58,9 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public User setId(int id) {
         this.id = id;
+        return this;
     }
 
     @Column(name = "name")
@@ -93,6 +108,15 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    @Column(name = "is_enabled")
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "role", referencedColumnName = "role", updatable = false, insertable = false)
     public List<RoleAction> getRoleActions() {
@@ -102,12 +126,4 @@ public class User implements Serializable {
         return Collections.unmodifiableList(roleActions);
     }
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-//    public Set<UserPost> getPosts() {
-//        return posts;
-//    }
-//
-//    public void setPosts(Set<UserPost> posts) {
-//        this.posts = posts;
-//    }
 }

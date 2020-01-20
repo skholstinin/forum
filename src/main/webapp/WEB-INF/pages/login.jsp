@@ -10,7 +10,7 @@
         </div>
         <form id="login-form" action="/j_username_security_check" method="post" role="form" style="display: block">
             <div class="form-group">
-                <input type="text" name="j_username" id="login" tabindex="1" class="form-control" p laceholder="Логин"/>
+                <input type="text" name="j_username" id="login" tabindex="1" class="form-control" placeholder="Логин"/>
             </div>
             <div class="form-group">
                 <input type="password" name="j_password" id="password" tabindex="2" class="form-control"

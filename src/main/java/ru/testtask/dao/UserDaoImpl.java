@@ -54,7 +54,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean createUser(User user) {
-        return false;
+        logger.info(user.toString());
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
+        return true;
     }
 
     private User getUserByCriteria(Session session, String criteria, String value) {

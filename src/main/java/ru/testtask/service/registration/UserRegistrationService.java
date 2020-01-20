@@ -21,6 +21,8 @@ public interface UserRegistrationService {
 
     boolean isLoginUnique(RegistrationPageDTO registrationInfo);
 
+    boolean validateLoginLengthAndContains(RegistrationPageDTO registrationInfo);
+
     boolean validateLength(String val, int len);
 
 }

@@ -63,6 +63,6 @@ public class WebUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;//TODO temporaly is always true
+        return user.isEnabled();//TODO temporaly is always true
     }
 }

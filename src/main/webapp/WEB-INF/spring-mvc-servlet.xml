@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <context:annotation-config/>
-    <context:component-scan base-package="ru.test"/>
+    <context:component-scan base-package="ru.testtask"/>
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -21,10 +21,6 @@
     <bean id="localeChangeInterceptor"
           class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
         <property name="paramName" value="lang"/>
-    </bean>
-
-    <bean id="defaultTargetUrl" class="java.lang.String">
-        <constructor-arg value="/mainpage"/>
     </bean>
 
     <mvc:resources mapping="/resources/**" location="/resources/default-theme/" cache-period="31556926"/>

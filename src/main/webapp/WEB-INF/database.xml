@@ -4,18 +4,18 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-    <!--        <property name="driverClassName" value="org.postgresql.Driver"/>-->
-    <!--        <property name="url"-->
-    <!--                  value="jdbc:postgresql://localhost:5432/postgres"/>-->
-    <!--        <property name="username" value="postgres"/>-->
-    <!--        <property name="password" value="1"/>-->
-    <!--    </bean>-->
+    <!--        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <!--            <property name="driverClassName" value="org.postgresql.Driver"/>-->
+    <!--            <property name="url"-->
+    <!--                      value="jdbc:postgresql://localhost:5432/postgres1"/>-->
+    <!--            <property name="username" value="postgres"/>-->
+    <!--            <property name="password" value="1"/>-->
+    <!--        </bean>-->
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url"
-                  value="jdbc:postgresql://ec2-54-247-96-169.eu-west-1.compute.amazonaws.com:5432/dedgivhfaujcmt?ssl:true;sslfactory:org.postgresql.ssl.NonValidatingFactory"/>
+                  value="jdbc:postgresql://ec2-54-247-96-169.eu-west-1.compute.amazonaws.com:5432/dedgivhfaujcmt?ssl=true;sslfactory=org.postgresql.ssl.DefaultJavaSSLFactory"/>
         <property name="username" value="wirszidhvmzdgu"/>
         <property name="password" value="bed9806a10fb498dd187c9d06daa168bd2bec03882a297ecbb2090ec5b8acf45"/>
     </bean>
