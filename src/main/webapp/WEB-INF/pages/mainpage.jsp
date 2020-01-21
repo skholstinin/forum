@@ -18,13 +18,70 @@
                 </c:forEach>
             </ol>
         </div>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                var dialog, form,
+                    topicTitle = $("#topicTitle"),
+                    allFields = $([]).add(topicTitle);
+
+                function addTopic() {
+                    var valid = true;
+                    $(post).append("<tr>" +
+                        "<td>" + topicTitle.val() + "</td>" +
+                        "</tr>");
+                    dialog.dialog("close");
+                    return valid;
+                }
+
+                dialog = $("#dialog-form").dialog({
+                    autoOpen: false,
+                    height: 400,
+                    width: 350,
+                    modal: true,
+                    buttons: {
+                        "Create a new topic": addTopic,
+                        Cancel: function () {
+                            dialog.dialog("close");
+                        }
+                    },
+                    close: function () {
+                        form[0].reset();
+                        allFields.removeClass("ui-state-error");
+                    }
+                });
+                form = dialog.find("form").on("submit", function (event) {
+                    event.preventDefault();
+                    addTopic();
+                });
+                $("#create-topic").button().on("click", function () {
+                    dialog.dialog("open");
+                });
+            });
+        </script>
+        <body>
+        <div id="dialog-form" title="Создание новой темы">
+            <form>
+                <fieldset>
+                    <label for="topicTitle">Название</label>
+                    <input type="text" name="topicTitle" id="topicTitle" value="Название темы"
+                           class="text ui-widget-content ui-corner-all">
+                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                </fieldset>
+            </form>
+        </div>
+        <button id="create-topic">Создать тему</button>
         </body>
 
-        <form method="post" action="/topic/${currentUser.id}/0">
-            <input type="text" name="topicTitle" maxlength="100" value="">
-            <input type="submit" name="btnAddArticle" value="Добавить">
-        </form>
+        </body>
+
+
     </sec:authorize>
     </head>
     <body>
 </t:base-page>
+
