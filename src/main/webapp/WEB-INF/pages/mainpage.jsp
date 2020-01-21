@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<tags:base-page>
+<t:base-page>
     <head>
         <title>Главная страница</title>
     </head>
@@ -10,35 +10,21 @@
     <div style="text-align: center">
         <h1 align="center">Список тем форума</h1>
     </div>
-
-    <div class="col col-sm-9">
-        <div class="card-columns">
-            <sec:authorize access="hasAuthority(T(ru.testtask.security.Actions).ENABLE_MAINPAGE_VIEW)">
+    <sec:authorize access="hasAuthority(T(ru.testtask.security.Actions).ENABLE_MAINPAGE_VIEW)">
+        <div class="col col-sm-9">
+            <ol>
                 <c:forEach var="topic" items="${topics}">
-                    <div>
-                        <ol>
-                            <li>
-                                <a href="/topic/${topic.id}">${topic.title}</a>
-                            </li>
-                        </ol>
-                    </div>
+                    <li><a href="/topic/${topic.id}">${topic.title}</a></li>
                 </c:forEach>
-            </sec:authorize>
+            </ol>
         </div>
-    </div>
-    </body>
+        </body>
 
-    <script type="text/javascript">
-        function show_prompt() {
-            var name = prompt("Введите название темы", "Название");
-            if (name != null && name != "") {
-                document.location.href = "/createtopic";
-            }
-        }
-    </script>
+        <form method="post" action="/topic/${currentUser.id}/0">
+            <input type="text" name="topicTitle" maxlength="100" value="">
+            <input type="submit" name="btnAddArticle" value="Добавить">
+        </form>
+    </sec:authorize>
     </head>
     <body>
-
-    <input type="button" onclick="show_prompt()" value="Новая тема"/>
-
-</tags:base-page>
+</t:base-page>

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.testtask.dto.RegistrationPageDTO;
 import ru.testtask.service.registration.UserRegistrationService;
-import ru.testtask.service.topic.TopicService;
 
 @Controller
 public class RegistrationController {
@@ -34,7 +33,7 @@ public class RegistrationController {
             model.addAttribute("user", user);
             return "registration";
         }
-        return addUser(user) ? "mainpage" : "registration";
+        return addUser(user) ? "login" : "registration";
     }
 
     private boolean checkDataAndSetError(Model model, RegistrationPageDTO user) {
@@ -58,7 +57,6 @@ public class RegistrationController {
 
     private boolean checkSurName(Model model, RegistrationPageDTO user) {
         if (registrationService.isSurNameEmpty(user)) {
-
             model.addAttribute("surnameError", "Не указана фамилия");
             return false;
         } else if (!registrationService.validateLength(user.getSurname(), 40)) {

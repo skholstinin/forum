@@ -9,7 +9,6 @@ import java.util.Date;
 public class UserPost implements Serializable {
     private int id;
     private int topic_id;
-    private Topic topic;
     private String body;
     private Date start_date;
     private Date modify_date;
@@ -52,13 +51,6 @@ public class UserPost implements Serializable {
         this.topic_id = topic_id;
     }
 
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
     @Column(name = "start_date")
     public Date getStart_date() {
         return start_date;

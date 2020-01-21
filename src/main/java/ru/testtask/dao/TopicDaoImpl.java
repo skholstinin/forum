@@ -25,18 +25,12 @@ public class TopicDaoImpl implements TopicDao {
         this.sessionFactory = sessionFactory;
     }
 
-//    @Override
-//    public boolean persistUserTopic(Topic topic, int userId) {
-//        Session session = sessionFactory.getCurrentSession();
-//        if (topic.getId() > 0) {
-//            topic.setUser(new User().setId(userId));
-//            session.merge(topic);
-//        } else {
-//            topic.setUser(session.get(User.class, userId));
-//            session.save(topic);
-//        }
-//        return true;
-//    }
+    @Override
+    public boolean persistUserTopic(Topic topic, int userId) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(topic);
+        return true;
+    }
 
     @Override
     public Topic getTopicById(int id) {

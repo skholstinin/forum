@@ -6,7 +6,7 @@ import ru.testtask.pojo.User;
 import java.util.List;
 
 public interface TopicDao {
-//    boolean persistUserTopic(Topic topic, int userId);
+    boolean persistUserTopic(Topic topic, int userId);
 
     Topic getTopicById(int topicId);
 

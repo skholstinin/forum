@@ -39,8 +39,9 @@ public class Topic implements Serializable {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Topic setTitle(String title) {
         this.title = title;
+        return this;
     }
 
 
@@ -49,8 +50,9 @@ public class Topic implements Serializable {
         return start_date;
     }
 
-    public void setStart_date(Date start_date) {
+    public Topic setStart_date(Date start_date) {
         this.start_date = start_date;
+        return this;
     }
 
     @Column(name = "modify_date")
@@ -58,9 +60,11 @@ public class Topic implements Serializable {
         return modify_date;
     }
 
-    public void setModify_date(Date modify_date) {
+    public Topic setModify_date(Date modify_date) {
         this.modify_date = modify_date;
+        return this;
     }
+
     @Column(name = "author_user_id")
     public int getAuthor_user_id() {
         return author_user_id;
@@ -70,15 +74,15 @@ public class Topic implements Serializable {
         this.author_user_id = author_user_id;
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public Topic setUser(User user) {
-//        this.user = user;
-//        return this;
-//    }
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
+    }
+
+    public Topic setUser(User user) {
+        this.user = user;
+        return this;
+    }
 
 }

@@ -15,5 +15,5 @@ public interface TopicService {
 
     List<Topic> getListAllTopics();
 
-    void removePost(int postId);
+    void removeTopic(int topicId);
 }

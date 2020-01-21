@@ -5,21 +5,22 @@ import org.springframework.stereotype.Service;
 import ru.testtask.dao.TopicDao;
 import ru.testtask.pojo.Topic;
 import ru.testtask.pojo.User;
-
-import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class TopicServiceImpl implements TopicService {
+    private TopicDao topicDao;
 
     @Autowired
-    private TopicDao topicDao;
+    public void setTopicDao(TopicDao topicDao) {
+        this.topicDao = topicDao;
+    }
 
     @Override
     public boolean persistUserTopic(Topic topic, int userId) {
-        return false;
+        return true;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void removePost(int postId) {
+    public void removeTopic(int topicId) {
 
     }
 }

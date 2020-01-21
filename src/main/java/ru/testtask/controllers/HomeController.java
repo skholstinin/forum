@@ -8,15 +8,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.testtask.pojo.User;
 import ru.testtask.security.Actions;
+import ru.testtask.security.SecurityUtils;
 import ru.testtask.service.topic.TopicService;
+import ru.testtask.service.user.UserService;
 
 @Controller
 public class HomeController {
     private static final Logger logger = Logger.getLogger(HomeController.class);
+    private UserService userService;
+    private TopicService topicService;
 
     @Autowired
-    private TopicService topicService;
+    public void setTopicService(TopicService topicService, UserService userService) {
+        this.topicService = topicService;
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/")
     public String getIndex() {
@@ -27,6 +35,8 @@ public class HomeController {
     @Secured(Actions.ENABLE_MAINPAGE_VIEW)
     @GetMapping(value = "/mainpage")
     public String showMainPage(Model model) {
+        User user = userService.getUserByLogin(SecurityUtils.getAuthenticatedUsername());
+        model.addAttribute("currentUser", user);
         model.addAttribute("topics", topicService.getListAllTopics());
         return "mainpage";
     }

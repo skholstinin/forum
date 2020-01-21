@@ -7,6 +7,8 @@
     <title>Форум</title>
 </head>
 <body>
-
+<div style="text-align: center">
+    <h1 align="center">${topic.title}</h1>
+</div>
 </body>
 </html>
