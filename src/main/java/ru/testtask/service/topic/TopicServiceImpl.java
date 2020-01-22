@@ -20,7 +20,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public boolean persistUserTopic(Topic topic, int userId) {
-        return true;
+        return topicDao.persistUserTopic(topic, userId);
     }
 
     @Override

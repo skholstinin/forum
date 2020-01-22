@@ -24,17 +24,23 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $(function () {
-                var dialog, form,
-                    topicTitle = $("#topicTitle"),
+                var form,
+                    topicTitle = $("#topicTitleInput"),
                     allFields = $([]).add(topicTitle);
 
                 function addTopic() {
-                    var valid = true;
-                    $(post).append("<tr>" +
-                        "<td>" + topicTitle.val() + "</td>" +
-                        "</tr>");
-                    dialog.dialog("close");
-                    return valid;
+                    $(document).ready(function () {
+                        $.ajax({
+                            url: "/topic/${currentUser.id}/0",
+                            // dataType: "json", // Для использования JSON формата получаемых данных
+                            method: "POST", // Что бы воспользоваться POST методом, меняем данную строку на POST
+                            data: {"topicTitle": topicTitle},
+                            success: function (data) {
+                                console.log(data); // Возвращаемые данные выводим в консоль
+                            }
+                        });
+                    });
+                    return true;
                 }
 
                 dialog = $("#dialog-form").dialog({
@@ -66,8 +72,8 @@
         <div id="dialog-form" title="Создание новой темы">
             <form>
                 <fieldset>
-                    <label for="topicTitle">Название</label>
-                    <input type="text" name="topicTitle" id="topicTitle" value="Название темы"
+                    <label for="topicTitleInput">Название</label>
+                    <input type="text" name="topicTitleInput" id="topicTitleInput" value="Название темы"
                            class="text ui-widget-content ui-corner-all">
                     <!-- Allow form submission with keyboard without duplicating the dialog button -->
                     <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
